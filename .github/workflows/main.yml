@@ -35,5 +35,5 @@ jobs:
           deny-settings-mode: denyDelete
           resource-group-name: TESTRG1
           template-file: ./main.bicep
-          parameters-file: ./mainbicepparam
+          parameters: 'storagePrefix=mystore storageSKU=Standard_LRS'
           environment: azureCloud
