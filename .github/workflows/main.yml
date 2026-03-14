@@ -28,7 +28,7 @@ jobs:
           tenant-id: ${{ secrets.ARM_TENANT_ID }}
           subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       - name: Deploy Bicep
-        uses: uses: azure/arm-deploy@v1
+        uses: azure/arm-deploy@v1
         with:
           subscriptionId: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           resourceGroupName: TESTRG1
