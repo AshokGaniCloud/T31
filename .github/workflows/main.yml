@@ -21,26 +21,18 @@ jobs:
     steps:
       - name: Checkout self
         uses: actions/checkout@main
-      - name: Login Into Azure Cloud
-        uses: Azure/login@v2.3.0
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          enable-AzPSSession: true
-          auth-type: SERVICE_PRINCIPAL
-          environment: azurecloud
-      - name: Run Azure CLI commands
-        uses: azure/cli@v2
-        with:
-          inlineScript: |
-            az account show
-            az group list
+      
       - name: Deploy Bicep
-        uses: azure/arm-deploy@v1
+        uses: Azure/bicep-deploy@v2.2.0
         with:
-          subscriptionId: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          resourceGroupName: TESTRG1
-          template: ./main.bicep
-          parameters: ./mainbicepparam
-          failOnStdErr: false
+          type: deployment
+          operation: create
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          tenant-id: ${{secrets.AZURE_TENANT_ID}}
+          location: eastus
+          action-on-unmanage-resources: detach
+          deny-settings-mode: denyDelete
+          resource-group-name: TESTRG1
+          template-file: ./main.bicep
+          parameters-file: ./mainbicepparam
+          environment: azureCloud
