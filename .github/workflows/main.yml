@@ -21,7 +21,12 @@ jobs:
     steps:
       - name: Checkout self
         uses: actions/checkout@main
-      
+      - name: 'Az CLI login'
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       - name: Deploy Bicep
         uses: Azure/bicep-deploy@v2.2.0
         with:
